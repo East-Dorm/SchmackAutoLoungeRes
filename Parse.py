@@ -162,6 +162,14 @@ def lounge_res_strip(event: EventInfo):
     if "come watch" in event.header:
         event.header = event.header.replace("come watch", "")
         isThisALoungeRes = True
+    if "barkbarkbark" or "bark bark bark" in event.header:
+        event.header = event.header.replace("bark", "")
+        isThisALoungeRes = True
+    if "watch" in event.header:
+        event.header = event.header.replace("watch", "")
+        isThisALoungeRes = True
+    if "softcore gay" in event.header:
+        isThisALoungeRes = True
     if "fmm" in event.header:
         # This is incomprehensible good luck. But we are just setting the date to  next friday
         # Note: -1 mod seven is 6
