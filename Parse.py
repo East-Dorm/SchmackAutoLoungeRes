@@ -51,7 +51,7 @@ def time_strip(event: EventInfo):
     # All useful potential patterns. The order matters because some would trigger the others
     timepatterns = [r'(\d{2}):(\d{2}) pm', r'(\d{2}):(\d{2})pm', r'(\d{1}):(\d{2}) pm' r'(\d{1}):(\d{2})pm', r'(\d{2}):(\d{2}) am', r'(\d{2}):(\d{2})am',
                      r'(\d{1):(\d{2})am', r'(\d{1):(\d{2}) am', r'at (\d{2}) am', r'at (\d{2}) pm', r'at (\d{1}) pm', r'at (\d{1}) am', r'(\d{2}):(\d{2})', r'(\d{1}):(\d{2})',
-                        r'@(\d{1})pm', r'(\d{1}) pm',r'(\d{2}) pm', r'(\d{2})pm', r'(\d{2}) am', r'(\d{2})am', r'@(\d{1}) pm', r'@(\d{1})', r'(\d{1})pm', r'at (\d{1})', r'(\d{1})pm',
+                        r'@(\d{1})pm', r'(\d{1}) pm',r'(\d{2}) pm', r'(\d{2})pm', r'(\d{2}) am', r'(\d{2})am', r'@(\d{1}) pm', r'@ (\d{1})', r'@(\d{1})', r'(\d{1})pm', r'at (\d{2})', r'at (\d{1})', r'(\d{1})pm',
                         r'(\d{1})am', r'(\d{1}) pm',r'(\d{1}) am'
                         ]
     for timepattern in timepatterns:
