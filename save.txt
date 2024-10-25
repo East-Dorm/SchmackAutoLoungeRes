@@ -1,0 +1,18 @@
+ # Decode the email body
+        parts = payload.get('parts', [])
+        body = ''
+
+        # Function to recursively decode email parts
+        def decode_parts(parts_list):
+            for part in parts_list:
+                if part.get('parts'):
+                    decode_parts(part.get('parts'))
+                elif part.get('mimeType') == 'text/plain':
+                    data = part.get('body', {}).get('data', '')
+                    decoded_data = base64.urlsafe_b64decode(data).decode('utf-8')
+                    #print("Message Body:")
+                    #print(decoded_data)
+
+        decode_parts(parts)
+
+Created calendar with ID: c_a274fca937abc7b90af362a130851526475d833fc8c10deed6d41f61c39e6c3d@group.calendar.google.com
