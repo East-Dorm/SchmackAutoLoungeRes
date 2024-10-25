@@ -16,6 +16,7 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/calendar"]
 
+
 def create_calendar(service, calendar_name):
     calendar = {
         'summary': calendar_name,
@@ -108,7 +109,8 @@ def main():
   # The file token.json stores the user's access and refresh tokens, and is
   # created automatically when the authorization flow completes for the first
   # time.
-  TOKEN_PATH = "/home/stumpy/Scripts/SchmackAutoLoungeRes/token.json"
+  #TOKEN_PATH = "/home/stumpy/Scripts/SchmackAutoLoungeRes/token.json"
+  TOKEN_PATH = "token.json"
   if os.path.exists(TOKEN_PATH):
     creds = Credentials.from_authorized_user_file(TOKEN_PATH, SCOPES)
   # If there are no (valid) credentials available, let the user log in.
@@ -143,6 +145,24 @@ def main():
     #google calendar call
     service2 = build("calendar", "v3", credentials=creds)
     calendar_id = "ee3f1428ddeb99ddcb56b6c7370895499601fc98635024b91c208f99101c74ec@group.calendar.google.com"
+
+    already_added = []
+    page_token = None
+    while True:
+        events = service2.events().list(calendarId=calendar_id, pageToken=page_token).execute()
+        for event in events['items']:
+            already_added_event = EventInfo(event['summary'])
+            already_added_event.time = datetime.strptime(event["start"]["dateTime"],
+                  '%Y-%m-%dT%H:%M:00-07:00')
+            print(already_added_event)
+        for event in potential_events:
+           if event in already_added:
+              potential_events.remove(event)
+              print(event)
+        page_token = events.get('nextPageToken')
+        if not page_token:
+            break  
+        
     add_events_to_calendar(service2, calendar_id, potential_events)
 
   except HttpError as error:
