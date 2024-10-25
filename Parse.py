@@ -50,8 +50,10 @@ def time_strip(event: EventInfo):
 
     # All useful potential patterns. The order matters because some would trigger the others
     timepatterns = [r'(\d{2}):(\d{2}) pm', r'(\d{2}):(\d{2})pm', r'(\d{1}):(\d{2}) pm' r'(\d{1}):(\d{2})pm', r'(\d{2}):(\d{2}) am', r'(\d{2}):(\d{2})am',
-                     r'(\d{1):(\d{2})am', r'(\d{1):(\d{2}) am', r'at (\d{2}) am', r'at (\d{1}) pm', r'at (\d{1}) am', r'(\d{2}):(\d{2})', r'(\d{1}):(\d{2})',
-                        r'@(\d{1})pm', r'(\d{1}) pm',r'(\d{2}) pm', r'(\d{2})pm', r'@(\d{1}) pm', r'@(\d{1})', r'(\d{1})pm', r'at (\d{1})']
+                     r'(\d{1):(\d{2})am', r'(\d{1):(\d{2}) am', r'at (\d{2}) am', r'at (\d{2}) pm', r'at (\d{1}) pm', r'at (\d{1}) am', r'(\d{2}):(\d{2})', r'(\d{1}):(\d{2})',
+                        r'@(\d{1})pm', r'(\d{1}) pm',r'(\d{2}) pm', r'(\d{2})pm', r'(\d{2}) am', r'(\d{2})am', r'@(\d{1}) pm', r'@(\d{1})', r'(\d{1})pm', r'at (\d{1})', r'(\d{1})pm',
+                        r'(\d{1})am', r'(\d{1}) pm',r'(\d{1}) am'
+                        ]
     for timepattern in timepatterns:
         time = re.search(timepattern, event.header)
         # check if am, else convert to pm
@@ -85,7 +87,7 @@ def time_strip(event: EventInfo):
         event.time = datetime.today().replace(second=0, microsecond=0)
 
     # find today, tonight, or tommorrow
-    today_variants = ["today", "tonight", "now", "this evening", "this afternoon", "afternoon", "evening"]
+    today_variants = ["today", "tonight", "tomorrow", "now", "this evening", "this afternoon", "afternoon", "evening"]
     for word in today_variants:
         if word in event.header:
             AreYouSureThisIsALoungeRes = True
@@ -148,6 +150,9 @@ def lounge_res_strip(event: EventInfo):
     isThisALoungeRes = False
     if "lounge res" in event.header:
         event.header = event.header.replace("lounge res", "")
+        isThisALoungeRes = True
+    if "loungeres" in event.header:
+        event.header = event.header.replace("loungeres", "")
         isThisALoungeRes = True
     if "come see" in event.header:
         isThisALoungeRes = True
