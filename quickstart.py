@@ -155,10 +155,10 @@ def main():
             already_added_event.time = datetime.strptime(event["start"]["dateTime"],
                   '%Y-%m-%dT%H:%M:00-07:00')
             print(already_added_event)
-        for event in potential_events:
-           if event in already_added:
-              potential_events.remove(event)
-              print(event)
+            for e in potential_events:
+                if e.header == already_added_event.header and abs((e.time-already_added_event.time).total_seconds()) <= 7200:
+                    potential_events.remove(e)
+                    print(event)
         page_token = events.get('nextPageToken')
         if not page_token:
             break  

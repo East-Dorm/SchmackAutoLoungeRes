@@ -135,6 +135,9 @@ def yeet_these(event: EventInfo):
     if listWords[0] == "re":
         listWords.pop(0)
     
+    if listWords[0] == "fwd":
+        listWords.pop(0)
+    
     event.header = " ".join(listWords)
 
 
