@@ -87,7 +87,7 @@ def time_strip(event: EventInfo):
         event.time = datetime.today().replace(second=0, microsecond=0)
 
     # find today, tonight, or tommorrow
-    today_variants = ["today", "tonight", "tomorrow", "now", "this evening", "this afternoon", "afternoon", "evening"]
+    today_variants = ["today", "tonight", "tomorrow", "right now", "now", "this evening", "this afternoon", "afternoon", "evening"]
     for word in today_variants:
         if word in event.header:
             AreYouSureThisIsALoungeRes = True
@@ -115,7 +115,7 @@ def yeet_these(event: EventInfo):
     #get rid of any extra words in parenthesis or brackets
     noBetween = ["(", ")", "[", "]"]
     for i in range(len(noBetween)//2):
-        beginI = event.header.find(noBetween[2*1])
+        beginI = event.header.find(noBetween[2*i])
         endI = event.header.find(noBetween[2*i+1])
         if beginI != -1 and endI != -1:
             # remove everything in between
@@ -169,6 +169,8 @@ def lounge_res_strip(event: EventInfo):
         event.header = event.header.replace("watch", "")
         isThisALoungeRes = True
     if "softcore gay" in event.header:
+        isThisALoungeRes = True
+    if "sex" in event.header:
         isThisALoungeRes = True
     if "fmm" in event.header:
         # This is incomprehensible good luck. But we are just setting the date to  next friday
