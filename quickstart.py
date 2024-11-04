@@ -16,7 +16,7 @@ from googleapiclient.errors import HttpError
 
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ["https://www.googleapis.com/auth/gmail.modify", "https://www.googleapis.com/auth/calendar"]
+SCOPES = ["https://www.googleapis.com/auth/gmail.modify", "https://www.googleapis.com/auth/gmail.send", "https://www.googleapis.com/auth/calendar"]
 
 
 def add_events_to_calendar(calendar_service, calendar_id, event_list, gmail_service):
